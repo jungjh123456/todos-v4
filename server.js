@@ -23,18 +23,26 @@ app.post('/todos', (req, res) => {
   if (!Object.keys(newTodo).length) {
     return res.send({
       error: true,
-      reason: '페이로드가 없습니다. 새롭게 생성할 할일 데이터를 전달해 주세요.'
+      reason: '페이로드가 없습니다. 새롭게 생성할 할일 데이터를 전달해 주세요.',
     });
   }
 
   if (todos.map(todo => todo.id).includes(newTodo.id)) {
     return res.send({
       error: true,
-      reason: `${newTodo.id}는 이미 존재하는 id입니다.`
+      reason: `${newTodo.id}는 이미 존재하는 id입니다.`,
     });
   }
 
   todos = [newTodo, ...todos];
+  res.send(todos);
+});
+
+// 모든 할일의 completed를 일괄 변경
+app.patch('/todos/completed', (req, res) => {
+  const completed = req.body;
+
+  todos = todos.map(todo => ({ ...todo, ...completed }));
   res.send(todos);
 });
 
@@ -49,15 +57,9 @@ app.patch('/todos/:id', (req, res) => {
     });
   }
 
-  todos = todos.map(todo => (todo.id === id ? { ...todo, ...completed } : todo));
-  res.send(todos);
-});
-
-// 모든 할일의 completed를 일괄 변경
-app.patch('/todos', (req, res) => {
-  const completed = req.body;
-
-  todos = todos.map(todo => ({ ...todo, ...completed }));
+  todos = todos.map(todo =>
+    todo.id === id ? { ...todo, ...completed } : todo
+  );
   res.send(todos);
 });
 
