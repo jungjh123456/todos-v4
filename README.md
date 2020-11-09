@@ -18,14 +18,9 @@ const $todos = document.querySelector('.todos');
 const $inputTodo = document.querySelector('.input-todo');
 const $completeAll = document.querySelector('.complete-all');
 const $completedTodos = document.querySelector('.completed-todos');
-const $removeTodo = document.querySelector('.remove-todo');
 const $activeTodos = document.querySelector('.active-todos');
 const $btn = document.querySelector('.btn');
 const $nav = document.querySelector('.nav');
-const $li = document.querySelectorAll('.nav > li');
-const $checkbox = document.querySelector('.checkbox');
-const $active = document.getElementById('active');
-const $completed = document.getElementById('completed');
 
 // 함수
 
@@ -158,5 +153,6 @@ $nav.onclick = e => {
     fetchTodo();
   }
 };
+
 
 ```
